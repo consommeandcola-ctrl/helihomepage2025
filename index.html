@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鹿児島県ドクターヘリ 基地病院救急科ポータル</title>
+    <meta name="description" content="鹿児島県ドクターヘリおよび基地病院救急科の医療連携・搬送手順・予後調査のためのポータルサイトです。">
+    <!-- 検索されやすくするためのキーワード設定 -->
+    <meta name="keywords" content="鹿児島県,ドクターヘリ,救急医療,施設間搬送,基地病院,救急科,連携ポータル,ドクターヘリ要請">
+    
+    <!-- Google Fonts: Zen Kaku Gothic New -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons: インラインSVG -->
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Button Hover Effects */
+        .btn-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex items-center gap-4">
+                    <!-- Agusta Logo (Code-based SVG) -->
+                    <div class="bg-black rounded-lg shadow-md overflow-hidden flex-shrink-0" style="width: 100px; height: 70px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" class="w-full h-full">
+                            <!-- Main Rotor -->
+                            <path d="M20 40 L180 40" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <rect x="95" y="36" width="10" height="6" fill="white"/>
+                            <path d="M100 40 L100 55" stroke="white" stroke-width="4"/>
+                            <!-- Tail Section (Red) -->
+                            <path d="M20 45 L40 45 L50 75 L20 85 Z" fill="#ef4444"/>
+                            <path d="M20 85 L45 78 L60 85 L35 90 Z" fill="#ef4444"/>
+                            <!-- Body (Agusta Sleek Profile - White) -->
+                            <path d="M45 75 L65 65 L90 55 L140 55 C165 55 185 65 190 78 C192 85 180 90 170 90 L90 90 L65 85 Z" fill="white"/>
+                            <!-- Windows (Black) -->
+                            <path d="M150 62 L175 68 C178 72 175 76 170 78 L150 78 Z" fill="#111"/>
+                            <rect x="105" y="66" width="16" height="12" rx="2" fill="#111"/>
+                            <rect x="125" y="66" width="16" height="12" rx="2" fill="#111"/>
+                            <!-- Landing Gear -->
+                            <path d="M100 90 L100 98 L85 98" stroke="white" stroke-width="2.5"/>
+                            <path d="M150 90 L150 102 L158 102" stroke="white" stroke-width="2.5"/>
+                            <circle cx="158" cy="102" r="2" fill="white"/>
+                            <!-- Tail Rotor -->
+                            <path d="M15 55 L25 75" stroke="white" stroke-width="2"/>
+                            <!-- TEXT -->
+                            <text x="100" y="118" text-anchor="middle" fill="white" font-family="sans-serif" font-weight="900" font-size="16" letter-spacing="0.5">DOCTOR-HELI</text>
+                            <text x="100" y="132" text-anchor="middle" fill="white" font-family="sans-serif" font-weight="bold" font-size="10" letter-spacing="1">AGUSTA</text>
+                        </svg>
+                    </div>
+                    
+                    <!-- Site Title -->
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-800 tracking-tight leading-none">鹿児島県ドクターヘリ<br><span class="text-base font-normal">基地病院救急科ポータル</span></h1>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-slate-600 hover:text-medical-600 font-medium transition-colors">ホーム</a>
+                    <a href="#news" class="text-slate-600 hover:text-medical-600 font-medium transition-colors">お知らせ</a>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="text-slate-600 hover:text-medical-600 p-2">
+                        <!-- SVG Menu Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                            <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-24">
+        
+        <!-- Hero Section -->
+        <section class="relative bg-medical-900 overflow-hidden">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1583324113626-70df0f4deaab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-medical-900/90 to-medical-800/80"></div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center">
+                <span class="inline-block py-1 px-3 rounded-full bg-medical-500/20 border border-medical-400/30 text-medical-100 text-sm font-medium mb-6 animate-fade-in">
+                    医療関係者・連携機関専用
+                </span>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-fade-in delay-100">
+                    鹿児島県ドクターヘリ<br>
+                    <span class="text-2xl md:text-4xl lg:text-5xl mt-2 block">基地病院救急科ポータル</span>
+                </h2>
+                <p class="text-lg md:text-xl text-medical-100 max-w-2xl mx-auto mb-10 animate-fade-in delay-200">
+                    施設間搬送の要請手順や、搬送後の予後調査への回答を<br />
+                    こちらからスムーズに行っていただけます。
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Buttons Section -->
+        <section class="py-16 md:py-24 bg-slate-50 -mt-10 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    
+                    <!-- Button 1: Prognosis Survey -->
+                    <a href="https://fms1.txpmedical.com/fmi/webd/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C%E3%83%89%E3%82%AF%E3%83%98%E3%83%AA%E4%BA%8B%E5%BE%8C%E6%A4%9C%E8%A8%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0" target="_blank" rel="noopener noreferrer" class="group btn-card block bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:border-medical-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-medical-50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="w-14 h-14 bg-medical-100 text-medical-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-medical-600 group-hover:text-white transition-colors duration-300">
+                                <!-- SVG Icon: Clipboard Check -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7">
+                                    <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-medical-700 transition-colors">予後調査への回答</h3>
+                            <p class="text-slate-600 mb-6 flex-grow">
+                                搬送後の患者様の転帰・予後に関するデータの入力はこちらからお願いします。今後の搬送品質向上のためにご協力ください。
+                            </p>
+                            <div class="flex items-center text-medical-600 font-bold group-hover:translate-x-2 transition-transform">
+                                調査システムへ移動 
+                                <!-- SVG Icon: External Link -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Button 2: Transport Procedures -->
+                    <a href="施設間.html" class="group btn-card block bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:border-emerald-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
+                                <!-- SVG Icon: Book Open -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 1-4 4v14a3 3 0 0 0 3-3h7z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-800 mb-3 group-hover:text-emerald-700 transition-colors">施設間搬送の手順・要請</h3>
+                            <p class="text-slate-600 mb-6 flex-grow">
+                                ドクターヘリおよび医療ジェットによる施設間搬送の依頼フロー確認や、Web要請フォームの作成・入力はこちらから。
+                            </p>
+                            <div class="flex items-center text-emerald-600 font-bold group-hover:translate-x-2 transition-transform">
+                                手順・フォームを開く 
+                                <!-- SVG Icon: Arrow Right -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2">
+                                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <!-- News Section -->
+                <div id="news" class="mt-20 max-w-4xl mx-auto pt-10 pb-10">
+                    <div class="flex items-center gap-3 mb-6">
+                        <h3 class="text-2xl font-bold text-slate-800">重要なお知らせ</h3>
+                        <div class="h-px bg-slate-200 flex-grow"></div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="divide-y divide-slate-100">
+                            
+                            <!-- News Item 1 -->
+                            <div class="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
+                                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 sm:items-baseline">
+                                    <div class="text-sm font-medium text-slate-400 w-24">2024.12.01</div>
+                                    <div class="flex-grow">
+                                        <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-600 mb-2 sm:mb-0 mr-2">重要</span>
+                                        <a href="winter_schedule.pdf" target="_blank" rel="noopener noreferrer" class="text-slate-700 font-medium hover:text-medical-600 inline-flex items-center">
+                                            準備中
+                                            <!-- SVG Icon: File Text -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-1 text-slate-400">
+                                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Item 2 -->
+                            <div class="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
+                                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 sm:items-baseline">
+                                    <div class="text-sm font-medium text-slate-400 w-24">2024.11.15</div>
+                                    <div class="flex-grow">
+                                        <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-medical-100 text-medical-600 mb-2 sm:mb-0 mr-2">システム</span>
+                                        <a href="#" class="text-slate-700 font-medium hover:text-medical-600">予後調査システムのサーバーメンテナンスのお知らせ（2025/10/27実施）</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Item 3 -->
+                            <div class="p-4 sm:p-6 hover:bg-slate-50 transition-colors">
+                                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 sm:items-baseline">
+                                    <div class="text-sm font-medium text-slate-400 w-24">2024.10.30</div>
+                                    <div class="flex-grow">
+                                        <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-600 mb-2 sm:mb-0 mr-2">更新</span>
+                                        <a href="#" class="text-slate-700 font-medium hover:text-medical-600">施設間搬送要請手順マニュアルを改訂しました</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4 text-white">
+                        <!-- Helicopter Icon Small (Same SVG as Header, but smaller) -->
+                        <div class="bg-black p-1.5 rounded text-white flex items-center justify-center overflow-hidden" style="width: 40px; height: 28px;">
+                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" class="w-full h-full">
+                                <!-- Minimal version for footer -->
+                                <path d="M20 40 L180 40" stroke="white" stroke-width="5" stroke-linecap="round"/>
+                                <path d="M20 45 L40 45 L50 75 L20 85 Z" fill="#ef4444"/>
+                                <path d="M45 75 L65 65 L90 55 L140 55 C165 55 185 65 190 78 C192 85 180 90 170 90 L90 90 L65 85 Z" fill="white"/>
+                                <path d="M150 62 L175 68 C178 72 175 76 170 78 L150 78 Z" fill="#111"/>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-lg">基地病院救急科ポータル</span>
+                    </div>
+                    <p class="text-sm leading-relaxed max-w-md">
+                        本サイトは医療従事者および関係機関専用の情報共有プラットフォームです。<br>
+                        患者情報の取り扱いには十分ご注意ください。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-medium mb-4">メニュー</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">ホーム</a></li>
+                        <li><a href="#news" class="hover:text-white transition-colors">お知らせ</a></li>
+                        <li><a href="https://fms1.txpmedical.com/fmi/webd/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C%E3%83%89%E3%82%AF%E3%83%98%E3%83%AA%E4%BA%8B%E5%BE%8C%E6%A4%9C%E8%A8%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0" target="_blank" class="hover:text-white transition-colors">予後調査</a></li>
+                        <li><a href="施設間.html" class="hover:text-white transition-colors">搬送手順</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-medium mb-4">規約・ポリシー</h4>
+                    <ul class="space-y-2 text-sm">
+                        <!-- Updated Links to Policy Page -->
+                        <li><a href="policies.html#terms" class="hover:text-white transition-colors">利用規約</a></li>
+                        <li><a href="policies.html#privacy" class="hover:text-white transition-colors">プライバシーポリシー</a></li>
+                        <li><a href="policies.html#security" class="hover:text-white transition-colors">セキュリティ指針</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2024 Kagoshima Doctor Heli & Base Hospital Emergency Dept. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex space-x-4">
+                    <span>Version 1.3.0</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
