@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鹿児島県ドクターヘリ 市立病院救急科ポータル ver. 20251210</title>
+    <meta name="description" content="鹿児島県ドクターヘリおよび市立病院救急科の医療連携・搬送手順・予後調査のためのポータルサイトです。">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        heli: {
+                            red: '#dc2626',
+                            blue: '#1e40af',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Slick Background Integration */
+        .slick-bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+        }
+        .slick-bg-slider .slick-list,
+        .slick-bg-slider .slick-track {
+            height: 100%;
+        }
+        .slick-bg-slider .slick-slide {
+            height: 100%;
+        }
+        .slick-bg-slider .slick-slide > div {
+            height: 100%;
+        }
+        .slick-bg-slider .slick-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 画面全体にフィット */
+            object-position: center;
+            filter: brightness(0.7) contrast(1.1);
+        }
+        .slick-bg-slider .slick-prev, 
+        .slick-bg-slider .slick-next,
+        .slick-bg-slider .slick-dots {
+            display: none !important;
+        }
+
+        /* Heroセクションの高さを調整 */
+        .hero-section {
+            height: 57vh; /* 画面の4/7程度の高さに調整 */
+            min-height: 400px; /* 最小高さを確保 */
+            display: flex;
+            align-items: center;
+            padding-top: 6rem; /* ヘッダー分のパディング */
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 50vh; /* モバイルでは少し低めに */
+                min-height: 360px;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .hero-section {
+                height: 50vh; /* 小さい画面でも調整 */
+                min-height: 340px;
+            }
+        }
+
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-fade-in-down {
+            animation: fadeInDown 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .delay-100 { animation-delay: 0.1s; opacity: 0; }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .delay-500 { animation-delay: 0.5s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Button Hover Effects */
+        .btn-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-card:hover::before {
+            left: 100%;
+        }
+
+        .btn-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-card .icon-container {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-card:hover .icon-container {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Header Scroll Effect */
+        .header-scroll {
+            transition: all 0.3s ease;
+        }
+
+        .header-scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* News Item Hover */
+        .news-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .news-item:hover {
+            background: linear-gradient(90deg, #f8fafc 0%, #e0f2fe 100%);
+            transform: translateX(5px);
+        }
+
+        /* Logo Animation */
+        .logo-container {
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Scroll Indicator */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .scroll-indicator {
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        /* Loading Animation */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .loading-shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header id="mainHeader" class="header-scroll bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <div class="flex items-center gap-4 animate-fade-in-down">
+                    <!-- Agusta Logo -->
+                    <div class="logo-container bg-black rounded-lg shadow-md overflow-hidden flex-shrink-0" style="width: 75px; height: 52px;">
+                        <img src="heli_illust.png" alt="DOCTOR-HELI AGUSTA" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-800 tracking-tight leading-none">
+                            鹿児島県ドクターヘリ<br>
+                            <span class="text-base font-normal">基地病院救急科ポータル</span>
+                        </h1>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8 animate-fade-in-down delay-200">
+                    <a href="#" class="text-slate-600 hover:text-medical-600 font-medium transition-colors">ホーム</a>
+                    <a href="#services" class="text-slate-600 hover:text-medical-600 font-medium transition-colors">サービス</a>
+                    <a href="#news" class="text-slate-600 hover:text-medical-600 font-medium transition-colors">お知らせ</a>
+                </nav>
+                <div class="md:hidden">
+                    <button class="text-slate-600 hover:text-medical-600 p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- Hero Section with Background Slider -->
+        <section class="hero-section relative bg-medical-900 overflow-hidden">
+            
+            <!-- Background Image Slider -->
+            <div class="slick-bg-slider">
+                <div><img src="bg1.jpg" alt="ドクターヘリ背景 1"></div>
+                <div><img src="bg2.jpg" alt="ドクターヘリ背景 2"></div>
+                <div><img src="bg3.jpg" alt="ドクターヘリ背景 3"></div>
+                <div><img src="bg4.jpg" alt="ドクターヘリ背景 4"></div>
+            </div>
+            
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-b from-medical-900/20 via-transparent to-medical-900/40 z-20"></div>
+            
+            <!-- Content -->
+            <div class="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex flex-col items-center justify-center text-center w-full h-full">
+                <span class="inline-block py-1.5 px-3 rounded-full glass-effect text-white text-sm font-medium mb-6 animate-fade-in-up animate-pulse-slow">
+                    <i data-lucide="shield-check" class="w-4 h-4 inline mr-1"></i>
+                    医療関係者・連携機関専用
+                </span>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight animate-fade-in-up delay-100">
+                    鹿児島県ドクターヘリ<br>
+                    <span class="text-2xl md:text-4xl lg:text-5xl mt-2 block gradient-text">基地病院救急科ポータル</span>
+                </h2>
+                <p class="text-base md:text-lg text-white/90 max-w-3xl mx-auto mb-8 animate-fade-in-up delay-200 leading-relaxed">
+                    施設間搬送の要請手順や、搬送後の予後調査への回答を<br class="hidden md:block" />
+                    こちらからスムーズに行っていただけます
+                </p>
+                
+                <!-- Scroll Indicator -->
+                <div class="scroll-indicator mt-6 animate-fade-in-up delay-300">
+                    <i data-lucide="chevron-down" class="w-7 h-7 text-white/60"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-20 bg-gradient-to-b from-slate-50 to-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+                        ご案内
+                    </h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-medical-500 to-heli-blue mx-auto rounded-full"></div>
+                </div>
+
+                <!-- Service Cards -->
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    
+                    <!-- 予後調査カード -->
+                    <a href="https://fms1.txpmedical.com/fmi/webd/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C%E3%83%89%E3%82%AF%E3%83%98%E3%83%AA%E4%BA%8B%E5%BE%8C%E6%A4%9C%E8%A8%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0" target="_blank" rel="noopener noreferrer" class="group btn-card block bg-white rounded-3xl p-10 border border-slate-200 shadow-lg hover:border-medical-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-medical-100 to-medical-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-125"></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="icon-container w-16 h-16 bg-gradient-to-br from-medical-500 to-medical-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                                <i data-lucide="clipboard-check" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-slate-800 mb-4 group-hover:text-medical-700 transition-colors">予後調査への回答</h3>
+                            <p class="text-slate-600 mb-8 flex-grow text-lg leading-relaxed">
+                                搬送後の患者様の転帰・予後に関するデータの入力はこちらからお願いします。今後の搬送活動の向上のためにご協力ください。
+                            </p>
+                            <div class="flex items-center text-medical-600 font-bold text-lg group-hover:translate-x-3 transition-transform">
+                                調査システムへ移動 
+                                <i data-lucide="external-link" class="w-5 h-5 ml-2"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-medical-400 to-medical-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                    </a>
+
+                    <!-- 施設間搬送カード -->
+                    <a href="施設間.html" class="group btn-card block bg-white rounded-3xl p-10 border border-slate-200 shadow-lg hover:border-emerald-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-125"></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="icon-container w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                                <i data-lucide="book-open" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold text-slate-800 mb-4 group-hover:text-emerald-700 transition-colors">施設間搬送の手順・要請</h3>
+                            <p class="text-slate-600 mb-8 flex-grow text-lg leading-relaxed">
+                                ドクターヘリによる施設間搬送の依頼フロー確認や、Web要請フォームの作成・入力はこちらから。
+                            </p>
+                            <div class="flex items-center text-emerald-600 font-bold text-lg group-hover:translate-x-3 transition-transform">
+                                手順・フォームを開く 
+                                <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-400 to-emerald-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                    </a>
+
+                </div>
+
+                <!-- News Section -->
+                <div id="news" class="mt-24 max-w-4xl mx-auto">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 bg-gradient-to-br from-heli-red to-red-600 rounded-xl flex items-center justify-center">
+                            <i data-lucide="megaphone" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-slate-800">重要なお知らせ</h3>
+                        <div class="h-px bg-slate-200 flex-grow"></div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                        <div class="divide-y divide-slate-100">
+                            
+                            <div class="news-item p-6 sm:p-8">
+                                <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 sm:items-start">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+                                        <span class="text-sm font-medium text-slate-400 min-w-[90px]">2025.12.01</span>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-red-500 to-red-600 text-white shadow-sm">重要</span>
+                                            <i data-lucide="star" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                                        </div>
+                                        <a href="winter_schedule.pdf" target="_blank" rel="noopener noreferrer" class="text-slate-800 font-semibold text-lg hover:text-medical-600 inline-flex items-center group">
+                                            準備中
+                                            <i data-lucide="file-text" class="w-4 h-4 ml-2 text-slate-400 group-hover:text-medical-600 transition-colors"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-item p-6 sm:p-8">
+                                <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 sm:items-start">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+                                        <span class="text-sm font-medium text-slate-400 min-w-[90px]">2025.11.15</span>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-medical-500 to-medical-600 text-white mb-2 shadow-sm">システム</span>
+                                        <a href="#" class="text-slate-800 font-semibold text-lg hover:text-medical-600 block">
+                                            予後調査システムのサーバーメンテナンスのお知らせ(10/27実施)
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="news-item p-6 sm:p-8">
+                                <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 sm:items-start">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-slate-400"></i>
+                                        <span class="text-sm font-medium text-slate-400 min-w-[90px]">2025.10.30</span>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white mb-2 shadow-sm">更新</span>
+                                        <a href="#" class="text-slate-800 font-semibold text-lg hover:text-medical-600 block">
+                                            施設間搬送要請手順マニュアルを改訂しました
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- View All News Button -->
+                    <div class="text-center mt-8">
+                        <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition-colors">
+                            <i data-lucide="archive" class="w-4 h-4"></i>
+                            過去のお知らせを見る
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Quick Links Section -->
+        <section class="py-16 bg-gradient-to-br from-medical-50 to-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-3 gap-6">
+                    
+                    <!-- カード1: 緊急連絡先 -->
+                    <!-- HTMLファイルが完成したら、以下のコメントを外してリンクを有効化してください -->
+                    <!-- ここにリンクを貼り付け: <a href="emergency_contact.html" class="block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-slate-200 hover:border-blue-300"> -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 opacity-60 cursor-not-allowed">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="phone" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">準備中</h4>
+                                <p class="text-sm text-slate-600">カード1</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- リンク終了タグ: </a> -->
+
+                    <!-- カード2: 各種マニュアル -->
+                    <!-- HTMLファイルが完成したら、以下のコメントを外してリンクを有効化してください -->
+                    <!-- ここにリンクを貼り付け: <a href="manual.html" class="block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-slate-200 hover:border-purple-300"> -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 opacity-60 cursor-not-allowed">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="file-text" class="w-5 h-5 text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">準備中</h4>
+                                <p class="text-sm text-slate-600">カード2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- リンク終了タグ: </a> -->
+
+                    <!-- カード3: FAQ・よくある質問 -->
+                    <!-- HTMLファイルが完成したら、以下のコメントを外してリンクを有効化してください -->
+                    <!-- ここにリンクを貼り付け: <a href="faq.html" class="block bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all border border-slate-200 hover:border-amber-300"> -->
+                    <div class="bg-white rounded-xl p-6 shadow-md border border-slate-200 opacity-60 cursor-not-allowed">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="help-circle" class="w-5 h-5 text-amber-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 mb-1">準備中</h4>
+                                <p class="text-sm text-slate-600">カード3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- リンク終了タグ: </a> -->
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+                            <img src="heli_illust.png" alt="Logo" class="w-10 h-10 object-contain">
+                        </div>
+                        <span class="font-bold text-lg text-white">基地病院救急科ポータル</span>
+                    </div>
+                    <p class="text-sm leading-relaxed max-w-md">
+                        本サイトは医療従事者および関係機関専用の情報共有プラットフォームです。<br>
+                        情報の取り扱いには十分ご注意ください。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="navigation" class="w-4 h-4"></i>
+                        メニュー
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>ホーム
+                        </a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>サービス
+                        </a></li>
+                        <li><a href="#news" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>お知らせ
+                        </a></li>
+                        <li><a href="https://fms1.txpmedical.com/fmi/webd/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C%E3%83%89%E3%82%AF%E3%83%98%E3%83%AA%E4%BA%8B%E5%BE%8C%E6%A4%9C%E8%A8%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0" target="_blank" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>予後調査
+                        </a></li>
+                        <li><a href="施設間.html" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>搬送手順
+                        </a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4 flex items-center gap-2">
+                        <i data-lucide="shield" class="w-4 h-4"></i>
+                        規約・ポリシー
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="policies.html#terms" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>利用規約
+                        </a></li>
+                        <li><a href="policies.html#privacy" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>プライバシーポリシー
+                        </a></li>
+                        <li><a href="policies.html#security" class="hover:text-white transition-colors flex items-center gap-2">
+                            <i data-lucide="chevron-right" class="w-3 h-3"></i>セキュリティ指針
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2025 Kagoshima Doctor Heli & City Hospital Emergency Dept. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex items-center gap-4">
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="code" class="w-3 h-3"></i>
+                        Version 2.0.0
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="zap" class="w-3 h-3"></i>
+                        Enhanced UI
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Background Slider
+            $('.slick-bg-slider').slick({
+                dots: false,
+                arrows: false,
+                infinite: true,
+                speed: 2000,
+                slidesToShow: 1,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                fade: true,
+                cssEase: 'ease-in-out',
+                pauseOnFocus: false,
+                pauseOnHover: false,
+                adaptiveHeight: false // 高さを固定
+            });
+
+            // Header Scroll Effect
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('#mainHeader').addClass('header-scrolled');
+                } else {
+                    $('#mainHeader').removeClass('header-scrolled');
+                }
+            });
+
+            // Smooth Scroll for Navigation Links
+            $('a[href^="#"]').on('click', function(e) {
+                e.preventDefault();
+                var target = $(this.getAttribute('href'));
+                if(target.length) {
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - 100
+                    }, 800);
+                }
+            });
+
+            // Intersection Observer for Animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in-up');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe service cards and news items
+            document.querySelectorAll('.btn-card, .news-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
