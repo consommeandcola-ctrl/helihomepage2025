@@ -41,136 +41,137 @@
     </script>
 
     <style>
-        /* 背景スライドショー - CSSのみで実装 */
-        /* 動画を使う場合: HTMLで<video>タグのコメントを外し、autoplay muted loop playsinline属性を付けてください */
-        /* 画像と動画を混在させる場合: nth-child()の数字を調整してタイミングを合わせてください */
+        /* 通常のレスポンシブヘッダー */
         .hero-header {
             position: relative;
-            min-height: 100vh;
-            overflow: hidden;
-            background-color: #0c4a6e;
-        }
-        
-        .bg-slideshow {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 0;
+            min-height: 100vh; /* 常に画面の高さ */
+            background-color: rgba(224, 242, 254, 1);
+            display: flex;
+            flex-direction: column;
+            padding-top: 96px; /* ナビゲーションバーの高さ分 */
         }
         
-        /* 画像用のスタイル */
-        .bg-slideshow img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            filter: brightness(0.7) contrast(1.1);
-            opacity: 0;
-            animation: slideshow 15s infinite;
-        }
-        
-        /* 動画用のスタイル */
-        .bg-slideshow video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            filter: brightness(0.7) contrast(1.1);
-            opacity: 0;
-            animation: slideshow 15s infinite;
-        }
-        
-        /* モバイル対応: 画像全体を表示 */
-        @media (max-width: 768px) {
-            .hero-header {
-                min-height: 70vh; /* スマホでは高さを抑える */
-                height: 70vh;
-            }
-            
-            .bg-slideshow img,
-            .bg-slideshow video {
-                object-fit: contain; /* 画像・動画全体が見えるように */
-            }
-        }
-        
-        .bg-slideshow img:nth-child(1),
-        .bg-slideshow video:nth-child(1) {
-            animation-delay: 0s;
-        }
-        
-        .bg-slideshow img:nth-child(2),
-        .bg-slideshow video:nth-child(2) {
-            animation-delay: 5s;
-        }
-        
-        .bg-slideshow img:nth-child(3),
-        .bg-slideshow video:nth-child(3) {
-            animation-delay: 10s;
-        }
-        
-        .bg-slideshow img:nth-child(4),
-        .bg-slideshow video:nth-child(4) {
-            animation-delay: 15s;
-        }
-        
-        @keyframes slideshow {
-            0% { opacity: 0; }
-            5% { opacity: 1; }
-            33% { opacity: 1; }
-            38% { opacity: 0; }
-            100% { opacity: 0; }
-        }
-        
-        /* ナビゲーションバー */
-        .nav-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-bar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .nav-bar.scrolled a,
-        .nav-bar.scrolled h1,
-        .nav-bar.scrolled button {
-            color: #1e293b !important;
-        }
-        
-        /* Hero コンテンツ */
-        .hero-content {
+        /* 背景画像レイヤー */
+        .hero-header::before,
+        .hero-header::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding-top: 100px;
+            background-size: cover; /* 全画面にフィット */
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .hero-header::before {
+            background-image: url('bg1.jpg');
+            animation: bgFade1 15s infinite;
+        }
+        
+        .hero-header::after {
+            background-image: url('bg2.jpg');
+            animation: bgFade2 15s infinite;
+        }
+        
+        /* 3枚目の画像用の追加レイヤー */
+        .bg-layer-3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('bg3.jpg');
+            background-size: cover; /* 全画面にフィット */
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: bgFade3 15s infinite;
+        }
+        
+        /* フェードアニメーション - 3枚用 */
+        @keyframes bgFade1 {
+            0% { opacity: 1; }
+            30% { opacity: 1; }
+            35% { opacity: 0; }
+            95% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes bgFade2 {
+            0% { opacity: 0; }
+            30% { opacity: 0; }
+            35% { opacity: 1; }
+            63% { opacity: 1; }
+            68% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        
+        @keyframes bgFade3 {
+            0% { opacity: 0; }
+            63% { opacity: 0; }
+            68% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* 暗くするオーバーレイ */
+        .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        /* レイヤー構造 */
+        .nav-bar {
+            z-index: 100; /* ナビゲーションバー（ページ全体で最前面） */
+        }
+        
+        .hero-header > div {
+            z-index: 2; /* コンテンツ */
+        }
+        
+        .dark-overlay {
+            z-index: 1; /* オーバーレイ */
+        }
+        
+        .bg-layer-3,
+        .hero-header::before,
+        .hero-header::after {
+            z-index: 0; /* 背景レイヤー */
         }
         
         /* モバイル対応 */
         @media (max-width: 768px) {
             .hero-header {
-                min-height: 100vh;
+                min-height: 100vh; /* モバイルでも画面全体 */
             }
+        }
+
+        /* ナビゲーションバー */
+        .nav-bar {
+            position: fixed; /* ページ上部に固定 */
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-bar a,
+        .nav-bar h1,
+        .nav-bar button {
+            color: #1e293b;
+        }
+        
+        .nav-bar a:hover {
+            color: #0ea5e9;
         }
 
         /* アニメーション */
@@ -221,10 +222,8 @@
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
         .delay-300 { animation-delay: 0.3s; opacity: 0; }
 
-        /* スムーススクロール */
         html { scroll-behavior: smooth; }
 
-        /* ボタンホバー */
         .btn-card {
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -259,7 +258,6 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* グラデーションテキスト */
         .gradient-text {
             background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
             -webkit-background-clip: text;
@@ -267,14 +265,12 @@
             background-clip: text;
         }
 
-        /* ガラスエフェクト */
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* ニュースアイテムホバー */
         .news-item {
             transition: all 0.3s ease;
             cursor: pointer;
@@ -285,7 +281,6 @@
             transform: translateX(5px);
         }
 
-        /* ロゴアニメーション */
         .logo-container {
             transition: transform 0.3s ease;
         }
@@ -297,56 +292,47 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
 
-    <!-- Hero Header -->
-    <header class="hero-header">
-        
-        <!-- 背景スライドショー -->
-        <div class="bg-slideshow">
-            <img src="bg1.jpg" alt="ドクターヘリ背景 1">
-            <img src="bg2.jpg" alt="ドクターヘリ背景 2">
-            <img src="bg3.jpg" alt="ドクターヘリ背景 3">
-            
-            <!-- 動画を使う場合は以下のコメントを外して使用してください -->
-            <!-- 注意: 動画を使う場合は上の画像とanimation-delayを調整してください -->
-            <!-- 
-            <video autoplay muted loop playsinline>
-                <source src="bg_video1.mp4" type="video/mp4">
-            </video>
-            -->
-        </div>
-        
-        <!-- ナビゲーションバー -->
-        <nav class="nav-bar">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-24">
-                    <div class="flex items-center gap-4 animate-fade-in-down">
-                        <div class="logo-container bg-black rounded-lg shadow-md overflow-hidden flex-shrink-0" style="width: 75px; height: 52px;">
-                            <img src="heli_illust.png" alt="DOCTOR-HELI AGUSTA" class="w-full h-full object-contain">
-                        </div>
-                        <div>
-                            <h1 class="text-xl font-bold text-white tracking-tight leading-none">
-                                鹿児島県ドクターヘリ<br>
-                                <span class="text-base font-normal">基地病院救急科ポータル</span>
-                            </h1>
-                        </div>
+    <!-- ナビゲーションバー（固定） -->
+    <nav class="nav-bar py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4 animate-fade-in-down">
+                    <div class="logo-container bg-black rounded-lg shadow-md overflow-hidden flex-shrink-0" style="width: 75px; height: 52px;">
+                        <img src="heli_illust.png" alt="DOCTOR-HELI AGUSTA" class="w-full h-full object-contain">
                     </div>
-                    <div class="hidden md:flex space-x-8 animate-fade-in-down delay-200">
-                        <a href="#" class="text-white/90 hover:text-white font-medium transition-colors">ホーム</a>
-                        <a href="#services" class="text-white/90 hover:text-white font-medium transition-colors">サービス</a>
-                        <a href="#news" class="text-white/90 hover:text-white font-medium transition-colors">お知らせ</a>
-                    </div>
-                    <div class="md:hidden">
-                        <button class="text-white/90 hover:text-white p-2">
-                            <i data-lucide="menu" class="w-6 h-6"></i>
-                        </button>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight leading-none">
+                            鹿児島県ドクターヘリ<br>
+                            <span class="text-base font-normal">基地病院救急科ポータル</span>
+                        </h1>
                     </div>
                 </div>
+                <div class="hidden md:flex space-x-8 animate-fade-in-down delay-200">
+                    <a href="#" class="hover:text-medical-600 font-medium transition-colors">ホーム</a>
+                    <a href="#services" class="hover:text-medical-600 font-medium transition-colors">サービス</a>
+                    <a href="#news" class="hover:text-medical-600 font-medium transition-colors">お知らせ</a>
+                </div>
+                <div class="md:hidden">
+                    <button class="p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
+
+    <!-- Hero Header - 背景画像を直接headerに適用 -->
+    <header class="hero-header">
+        
+        <!-- 3枚目の背景レイヤー -->
+        <div class="bg-layer-3"></div>
+        
+        <!-- 暗くするオーバーレイ -->
+        <div class="dark-overlay"></div>
         
         <!-- Hero コンテンツ -->
-        <div class="hero-content">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 text-center">
+            <div class="max-w-7xl mx-auto">
                 <span class="inline-block px-5 py-2 mb-6 text-xs md:text-sm font-bold tracking-widest uppercase glass-effect text-white rounded-full shadow-lg animate-fade-in-up">
                     医療関係者・連携機関専用
                 </span>
@@ -359,7 +345,6 @@
                     こちらからスムーズに行っていただけます
                 </p>
                 
-                <!-- スクロールインジケーター -->
                 <div class="scroll-indicator mt-6 animate-fade-in-up delay-300">
                     <i data-lucide="chevron-down" class="w-7 h-7 text-white/60"></i>
                 </div>
@@ -373,7 +358,6 @@
         <section id="services" class="py-20 bg-gradient-to-b from-slate-50 to-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- セクションヘッダー -->
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
                         ご案内
@@ -381,10 +365,8 @@
                     <div class="w-24 h-1 bg-gradient-to-r from-medical-500 to-heli-blue mx-auto rounded-full"></div>
                 </div>
 
-                <!-- サービスカード -->
                 <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                     
-                    <!-- 予後調査カード -->
                     <a href="https://fms1.txpmedical.com/fmi/webd/%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C%E3%83%89%E3%82%AF%E3%83%98%E3%83%AA%E4%BA%8B%E5%BE%8C%E6%A4%9C%E8%A8%BC%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0" target="_blank" rel="noopener noreferrer" class="group btn-card block bg-white rounded-3xl p-10 border border-slate-200 shadow-lg hover:border-medical-300 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-medical-100 to-medical-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-125"></div>
                         <div class="relative z-10 flex flex-col h-full">
@@ -403,7 +385,6 @@
                         <div class="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-medical-400 to-medical-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                     </a>
 
-                    <!-- 施設間搬送カード -->
                     <a href="施設間.html" class="group btn-card block bg-white rounded-3xl p-10 border border-slate-200 shadow-lg hover:border-emerald-300 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-emerald-100 to-emerald-50 rounded-bl-full -mr-16 -mt-16 transition-transform group-hover:scale-125"></div>
                         <div class="relative z-10 flex flex-col h-full">
@@ -424,7 +405,6 @@
 
                 </div>
 
-                <!-- ニュースセクション -->
                 <div id="news" class="mt-24 max-w-4xl mx-auto">
                     <div class="flex items-center gap-4 mb-8">
                         <div class="w-12 h-12 bg-gradient-to-br from-heli-red to-red-600 rounded-xl flex items-center justify-center">
@@ -489,7 +469,6 @@
                         </div>
                     </div>
 
-                    <!-- 過去のお知らせボタン -->
                     <div class="text-center mt-8">
                         <a href="#" class="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition-colors">
                             <i data-lucide="archive" class="w-4 h-4"></i>
@@ -501,7 +480,6 @@
             </div>
         </section>
 
-        <!-- クイックリンクセクション -->
         <section class="py-16 bg-gradient-to-br from-medical-50 to-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10">
@@ -552,7 +530,6 @@
 
     </main>
 
-    <!-- フッター -->
     <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8 mb-8">
@@ -625,19 +602,8 @@
         </div>
     </footer>
 
-    <!-- スクリプト -->
     <script>
         lucide.createIcons();
-        
-        // ナビゲーションバーのスクロール効果
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.nav-bar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
         
         // スムーススクロール
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
