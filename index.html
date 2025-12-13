@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>鹿児島県ドクターヘリ 基地病院救急科ポータル ver. 20251213</title>
+    <title>鹿児島県ドクターヘリ 市立病院救急科ポータル ver. 20251210</title>
     <meta name="description" content="鹿児島県ドクターヘリおよび市立病院救急科の医療連携・搬送手順・予後調査のためのポータルサイトです。">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,6 +86,14 @@
             filter: brightness(0.7) contrast(1.1);
             opacity: 0;
             animation: slideshow 15s infinite;
+        }
+        
+        /* モバイル対応: 画像全体を表示 */
+        @media (max-width: 768px) {
+            .bg-slideshow img,
+            .bg-slideshow video {
+                object-fit: contain; /* 画像全体が見えるように */
+            }
         }
         
         .bg-slideshow img:nth-child(1),
